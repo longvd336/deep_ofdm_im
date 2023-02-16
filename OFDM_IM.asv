@@ -70,8 +70,6 @@ end
 
 %reference symbols
 ref_sym = sym_test;
-
-% Why ?? divide -> ref_sym/ QAM
 if(Mary==1)
     ref_symmm = ref_sym.*(1./abs(ref_sym)); % PSK
 else
@@ -92,6 +90,7 @@ BER2=zeros(1,size(sigma,2)); % M-ary bit error rate
 for s1 = 1:size(sigma,2)
     fprintf('== EbN0(dB) is %g == \n',EbN0dB(s1))
     %% ==================== Loop for iteration =======================
+    
     %symbol error of mcik and traditional ofdm method 
     symerr_mcik = zeros(1,iter);
     symerr_ofdm = zeros(1,iter);
@@ -122,7 +121,7 @@ for s1 = 1:size(sigma,2)
             x=y+1; %index of inforbit for next sub carriers
             info_dec_i = bi2de(info_bit_i); % binary to decimal as index
             % sym_i = sym_test(info_dec_i+1);
-            % mudulate the information bit
+            % mudulate the infor bit
             if(Mary==1)
                 sym_i = pskmod(info_dec_i,M,ro*pi./M,'gray');
             else
@@ -159,7 +158,6 @@ for s1 = 1:size(sigma,2)
         end
         
         %% Transmission over Rayleigh fading channel and AWGN noise
-        %Uncertain CSI channel
         %AWGN Noise
         noise = 1/sqrt(2)*(randn(size(tx_sym))+1i*randn(size(tx_sym)));
         % Fadding
